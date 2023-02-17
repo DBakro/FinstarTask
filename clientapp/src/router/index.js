@@ -1,6 +1,6 @@
 ﻿import { createWebHashHistory, createRouter } from 'vue-router';
 import CodesList from '@/components/CodesList.vue';
-import CodeAdd from '@/components/CodeAdd.vue';
+import CodeAddList from '@/components/CodeAddList.vue';
 
 const routes = [
     {
@@ -10,8 +10,8 @@ const routes = [
     },
     {
         path: "/codes-add",
-        name: "CodeAdd",
-        component: CodeAdd
+        name: "CodeAddList",
+        component: CodeAddList
     }
 ];
 
