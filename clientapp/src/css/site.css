@@ -1,0 +1,8 @@
+﻿.required .form-label:after {
+    content: "*";
+    color: red;
+}
+
+.inline-element{
+    display: inline-block;
+}

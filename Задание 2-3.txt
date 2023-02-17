@@ -1,0 +1,19 @@
+Тестовое задание 2:
+1) select c.client_name, count(cc.id) as "contacts_count"
+   from clients c
+   left join client_contacts cc on cc.client_id = c.id
+   group by c.id, c.clientname;
+   
+2) select c.client_name, count(cc.id) as "contacts_count"
+   from clients c
+   left join client_contacts cc on cc.client_id = c.id
+   group by c.id, c.clientname
+   having count(cc.id) > 2;
+   
+Тестовое задание 3:
+select d.id, d.dt as sd, MIN(d2.dt) as ed
+from dates d
+left join dates d2 on d2.id = d.id and d2.dt > d.dt
+where d2.dt notnull
+group by d.id, d.dt
+order by d.id, d.dt
