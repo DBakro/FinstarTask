@@ -26,7 +26,7 @@ namespace DotNetBackend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(IList<CodeInputModel> codeInputs)
+        public IActionResult Post(List<CodeInputModel> codeInputs)
         {
             if (!ModelState.IsValid)
             {

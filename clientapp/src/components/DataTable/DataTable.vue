@@ -37,7 +37,6 @@
                         page + 1 }}</button>
             </div>
         </div>
-
     </div>
 </template>
 
