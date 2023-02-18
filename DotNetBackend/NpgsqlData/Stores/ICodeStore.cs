@@ -7,15 +7,15 @@ namespace NpgsqlData.Stores
     public interface ICodeStore
     {
         IList<ICode> GetCodes(string? search = null, int? limit = null, int? offset = null, NpgsqlConnection? connection = null);
-      
+
         uint GetCount(string? search = null, NpgsqlConnection? connection = null);
 
-        CodeListModel GetCodeList(string? search = null, int? limit = null, int? offset = null);
-      
-        SqlResult Create(ICode codeModel, NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null);
+        ICodeList GetCodeList(string? search = null, int? limit = null, int? offset = null);
 
-        SqlResult CreateList(IList<CodeInputModel> codeInputs);
+        ISqlResult Create(ICode codeModel, NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null);
 
-        SqlResult DeleteAll(NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null);
+        ISqlResult CreateList(IList<CodeInputModel> codeInputs);
+
+        ISqlResult DeleteAll(NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null);
     }
 }

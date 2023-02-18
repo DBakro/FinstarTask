@@ -32,12 +32,9 @@ namespace DotNetBackend
 
             services.AddEndpointsApiExplorer();
 
-            services.AddScoped<ICodeStore, CodeStore>();
+            services.AddTransient<ICodeStore, CodeStore>();
 
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp";
-            });
+            services.AddSpaStaticFiles(configuration: options => { options.RootPath = "wwwroot"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

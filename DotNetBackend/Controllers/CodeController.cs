@@ -21,13 +21,20 @@ namespace DotNetBackend.Controllers
         [HttpGet]
         public JsonResult GetList(string? search = null, int? limit = null, int? offset = null)
         {
-            CodeListModel codeList = _codeStore.GetCodeList(search, limit, offset);
+            ICodeList codeList = _codeStore.GetCodeList(search, limit, offset);
             return new JsonResult(codeList);
         }
 
         [HttpPost]
         public IActionResult Post(List<CodeInputModel> codeInputs)
         {
+            if (!codeInputs?.Any() ?? true)
+            {
+                ModelState.AddModelError("", "Хотя бы один код должен быть указан");
+                string errorMsg = ModelState.GetModelStateErrorsJsonString();
+                return BadRequest(errorMsg);
+            }
+
             if (!ModelState.IsValid)
             {
                 string errorMsg = ModelState.GetModelStateErrorsJsonString();
@@ -36,7 +43,7 @@ namespace DotNetBackend.Controllers
 
             IEnumerable<ICode> codes = codeInputs.Select((c, index) => new CodeModel(c.Code, c.Value));
 
-            SqlResult sqlResult = _codeStore.CreateList(codeInputs);
+            ISqlResult sqlResult = _codeStore.CreateList(codeInputs);
             if (!sqlResult.Succeeded)
             {
                 sqlResult.AddErrorsToModelState(ModelState);

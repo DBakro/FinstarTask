@@ -1,6 +1,6 @@
 ﻿namespace NpgsqlData.Models
 {
-    public class CodeListModel
+    public class CodeListModel : ICodeList
     {
         public CodeListModel(uint total, IList<ICode> codes)
         {

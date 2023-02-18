@@ -2,7 +2,7 @@
 
 namespace NpgsqlData
 {
-    public class SqlResult
+    public class SqlResult: ISqlResult
     {
         public SqlResult()
         {
@@ -27,11 +27,6 @@ namespace NpgsqlData
 
         public IEnumerable<SqlError>? Errors { get; }
 
-        public static SqlResult Failed(params SqlError[] errors)
-        {
-            return new(errors);
-        }
-
         public string GetErrorsString()
         {
             if (Errors == null)
@@ -53,6 +48,11 @@ namespace NpgsqlData
                 modelState.AddModelError(sqlError.Column, sqlError.Description);
 
             }
+        }
+
+        public static SqlResult Failed(params SqlError[] errors)
+        {
+            return new SqlResult(errors);
         }
     }
 }

@@ -30,9 +30,9 @@ namespace NpgsqlData.Stores
             return _codeRepository.GetCount(search, connection);
         }
 
-        public CodeListModel GetCodeList(string? search = null, int? limit = null, int? offset = null)
+        public ICodeList GetCodeList(string? search = null, int? limit = null, int? offset = null)
         {
-            using (NpgsqlConnection connection = new (_connectionString))
+            using (NpgsqlConnection connection = new(_connectionString))
             {
                 connection.Open();
 
@@ -55,7 +55,7 @@ namespace NpgsqlData.Stores
             }
         }
 
-        public SqlResult Create(ICode codeModel, NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null)
+        public ISqlResult Create(ICode codeModel, NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null)
         {
             if (codeModel == null)
             {
@@ -70,7 +70,7 @@ namespace NpgsqlData.Stores
             return rowsCreated > 0 ? SqlResult.Success : SqlResult.Failed(new SqlError("Не удалось добавить запись: code - {0}, value - {1}", codeModel.Code, codeModel.Value));
         }
 
-        public SqlResult CreateList(IList<CodeInputModel> codeInputs)
+        public ISqlResult CreateList(IList<CodeInputModel> codeInputs)
         {
             if (!codeInputs?.Any() ?? true)
             {
@@ -83,7 +83,7 @@ namespace NpgsqlData.Stores
 
             try
             {
-                SqlResult sqlResult = DeleteAll(connection, transaction);
+                ISqlResult sqlResult = DeleteAll(connection, transaction);
                 if (!sqlResult.Succeeded)
                 {
                     return sqlResult;
@@ -114,7 +114,7 @@ namespace NpgsqlData.Stores
             }
         }
 
-        public SqlResult DeleteAll(NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null)
+        public ISqlResult DeleteAll(NpgsqlConnection? connection = null, NpgsqlTransaction? transaction = null)
         {
             _codeRepository.Delete(connection, transaction);
             return SqlResult.Success;
